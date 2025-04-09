@@ -4,6 +4,7 @@ import com.ndv.blog.domain.PostStatus;
 import com.ndv.blog.domain.entities.Category;
 import com.ndv.blog.domain.entities.Post;
 import com.ndv.blog.domain.entities.Tag;
+import com.ndv.blog.domain.entities.User;
 import com.ndv.blog.repositories.PostRepository;
 import com.ndv.blog.services.CategoryService;
 import com.ndv.blog.services.PostService;
@@ -40,5 +41,10 @@ public class PostServiceImpl implements PostService {
             return postRepository.findAllByStatusAndTagsContaining(PostStatus.PUBLISHED, tag);
         }
         return postRepository.findAllByStatus(PostStatus.PUBLISHED);
+    }
+
+    @Override
+    public List<Post> getDraftPosts(User user) {
+        return postRepository.findAllByAuthorAndStatus(user, PostStatus.DRAFT);
     }
 }

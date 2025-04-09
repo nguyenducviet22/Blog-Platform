@@ -47,7 +47,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
-
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/category/**").permitAll()
@@ -57,6 +56,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/tags/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/drafts").permitAll() //Use for testing via Postman
+                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/drafts").authenticated() //Use for logging in via Frontend
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
