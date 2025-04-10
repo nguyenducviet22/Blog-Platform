@@ -103,6 +103,12 @@ public class PostServiceImpl implements PostService {
         return postRepository.save(existingPost);
     }
 
+    @Override
+    public Post getPost(UUID id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Post does not exist with id " + id));
+    }
+
     private Integer calculateReadingTime(String content){
         if (content == null || content.isEmpty()) return 0;
         int wordCount = content.trim().split("\\s+").length;
