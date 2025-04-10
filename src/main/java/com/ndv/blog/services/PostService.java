@@ -1,6 +1,7 @@
 package com.ndv.blog.services;
 
 import com.ndv.blog.domain.CreatePostRequest;
+import com.ndv.blog.domain.UpdatePostRequest;
 import com.ndv.blog.domain.entities.Post;
 import com.ndv.blog.domain.entities.User;
 
@@ -14,4 +15,6 @@ public interface PostService {
     List<Post> getDraftPosts(User user);
 
     Post createPost(User user, CreatePostRequest createPostRequest);
+
+    Post updatePost(UUID id, UpdatePostRequest updatePostRequest);
 }

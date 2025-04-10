@@ -60,8 +60,9 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/posts/drafts").permitAll() //Use for testing via Postman
-                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/drafts").authenticated() //Use for logging in via Frontend
+//                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/drafts").authenticated() //Use for logging in via Frontend
                         .requestMatchers(HttpMethod.POST, "/api/v1/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/posts/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
