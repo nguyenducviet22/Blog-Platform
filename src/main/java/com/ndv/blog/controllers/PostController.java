@@ -40,21 +40,18 @@ public class PostController {
 
     @GetMapping("/drafts")
     public ResponseEntity<List<PostDto>> getDrafts(
-//            @RequestAttribute UUID userId //Use for logging in via Frontend
-            @RequestParam UUID userId //Use for testing via Postman
+            @RequestAttribute UUID userId //Use auth token for logging in via Postman
     ) {
         User loggedInUser = userService.getUserById(userId);
         List<Post> draftPosts = postService.getDraftPosts(loggedInUser);
         List<PostDto> postDtos = draftPosts.stream().map(post -> postMapper.toDto(post)).toList();
         return ResponseEntity.ok(postDtos);
-
     }
 
     @PostMapping
     public ResponseEntity<PostDto> createPost(
             @Valid @RequestBody CreatePostRequestDto createPostRequestDto,
-//            @RequestAttribute UUID userId //Use for logging in via Frontend
-            @RequestParam UUID userId //Use for testing via Postman
+            @RequestAttribute UUID userId //Use auth token for logging in via Postman
     ) {
         User loggedInUser = userService.getUserById(userId);
         CreatePostRequest createPostRequest = postMapper.toCreatePostRequest(createPostRequestDto);
@@ -82,7 +79,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable UUID id){
+    public ResponseEntity<Void> deletePost(@PathVariable UUID id) {
         postService.deletePost(id);
         return ResponseEntity.noContent().build();
     }
